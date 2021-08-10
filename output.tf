@@ -17,8 +17,6 @@ output "kube_config" {
   sensitive = true
 }
 
-
-
 output "Application_Gateway" {
   value = "${azurerm_kubernetes_cluster.Terra_aks.addon_profile[0].ingress_application_gateway[0].effective_gateway_id}"
 }

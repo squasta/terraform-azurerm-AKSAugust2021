@@ -6,7 +6,7 @@
 #   \_____|_|  \__,_|_| \__,_|_| |_|\__,_|
 #
 # Deployment with Helm
-# Exposed on Internet using Azure Application Gatewaty Ingress Controller
+# Exposed on Internet using Azure Application Gateway Ingress Controller
   
 
 resource "helm_release" "Terra-grafana2" {
