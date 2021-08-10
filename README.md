@@ -41,7 +41,7 @@ __Prerequisites :__
 - An Azure Subscription with enough privileges (create RG, AKS...)
 - Azure CLI 2.26.1 or >: <https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest>
    And you need to activate features that are still in preview and add extension aks-preview to azure CLI (az extension add --name aks-preview)
-- Terraform CLI 1.0.3 or > : <https://www.terraform.io/downloads.html>
+- Terraform CLI 1.0.4 or > : <https://www.terraform.io/downloads.html>
 - Helm CLI 3.6.3 or > : <https://helm.sh/docs/intro/install/> if you need to test Helm charts
 
 __To deploy this infrastructure :__
