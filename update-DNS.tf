@@ -7,11 +7,12 @@ data "azurerm_public_ip" "Terra-Public-IP-AppGW" {
 
 # cf. https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_a_record
 resource "azurerm_dns_a_record" "Terra-Ingress-DNS-A-Record" {
-  name                = "demoingress1"
-  # Need to define a variable for dns zone name here
-  zone_name           = "standemo.com" 
-  # Need to define a variable for rg dns zone name here
-  resource_group_name = "rg-azuredns"
+  name = var.a-record-dns-ingress
+  zone_name = var.dns-zone-name-for-ingress
+  resource_group_name = var.rg-name-dns-zone-for-ingress
+  # name = "demoingress1"
+  # zone_name = "standemo.com" 
+  # resource_group_name = "rg-azuredns"
   ttl                 = 100
   records             = ["${data.azurerm_public_ip.Terra-Public-IP-AppGW.ip_address}"]
 }

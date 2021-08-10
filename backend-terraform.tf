@@ -6,10 +6,14 @@
 #     |_|\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|  |_|  \_\___|_| |_| |_|\___/ \__\___|  |____/ \__,_|\___|_|\_\___|_| |_|\__,_|
                                                                                                                                   
 
+# A remote backend must be used for production (especially if deployments are done through CI/CD pipelines) 
+# or if you are not working only with yourself as a lone ranger :)
+
+
 ###################################################################################
-# Option 1 de remote Backend : utiliser Terraform Cloud Remote State Management
+# Option 1 for Terraform Remote Backend : use Terraform Cloud Remote State Management
 # https://www.hashicorp.com/blog/introducing-terraform-cloud-remote-state-management
-# créer son compte ici : https://app.terraform.io/session
+# create your account here : https://app.terraform.io/session
 ####################################################################################
 # Using a single workspace in Terraform Cloud Remote State / Terraform Enterprise
 # terraform {
@@ -25,12 +29,14 @@
 
 
 ###################################################################################
-# Option 2 de remote Backend : utiliser un Compte de stockage Azure
+# Option 2 for Terraform Remote Backend : use an Azure Storage Account
 # ref : https://www.terraform.io/docs/backends/types/azurerm.html
 ####################################################################################
-# créer au préalable un compte de stockage avec un container dans la région de déploiement
-# activer l'option Secure transfer required pour forcer l'usage de TLS
-# créer un container privé nommé terraform-state
+# You need as a prerequisite :
+# A storage Account with a blob container into your deployment region
+# Enable Secure Transfert Required option to force TLS usage
+# create a blob container named terraform-state
+
 # data "terraform_remote_state" "Terra-Backend-Stan1" {
 #    backend = "azure"
 #    config {

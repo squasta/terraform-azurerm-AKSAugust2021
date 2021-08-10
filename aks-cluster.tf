@@ -19,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "Terra_aks" {
   enable_pod_security_policy = var.defaultpool-securitypolicy
   sku_tier                   = var.sku-controlplane
   private_cluster_enabled    = var.enable-privatecluster
-  # automatic_channel_upgrade = var.automatic-channel-upgrade
+  # automatic_channel_upgrade = var.automatic-channel-upgrade        # this feature can not be used with Azure Spot nodes
  
   depends_on = [azurerm_log_analytics_workspace.Terra-LogsWorkspace]
 
@@ -85,8 +85,8 @@ resource "azurerm_kubernetes_cluster" "Terra_aks" {
     # Enable Azure Application Gateway Ingress Controller
     ingress_application_gateway {
       enabled = true
-      # gateway_id = ""                       # for brownfield deployment
-      gateway_name ="appgw-aks-july21"
+      # gateway_id = ""                       # for Brownfield deployment if you already set up an Application Gateway
+      gateway_name ="appgw-aks-july21"        # Greenfield deployment, this gateway will be created in cluster resource group.
       # subnet_cidr = "10.252.0.0/16"
       subnet_id = azurerm_subnet.Terra_aks_appgw_subnet.id
     }
@@ -96,7 +96,7 @@ resource "azurerm_kubernetes_cluster" "Terra_aks" {
 
   # Enable Kubernetes RBAC 
   role_based_access_control {
-    enabled = true
+    enabled = true               # please do NOT set up RBAC to false !!!
   }
 
   # Managed Identity is mandatory because Kubernetes will provision some Azure Resources like Azure Load Balancer, Public IP, Managed Disks... 

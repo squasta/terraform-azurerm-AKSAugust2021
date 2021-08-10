@@ -29,7 +29,7 @@ These Terraform files can be used to deploy the following Azure components :
 - An Azure Load Balancer Standard SKU
 - A Virtual Network with it Subnets (subnet for AKS Pods, subnets for AzureBastion and AzureFirewall/NVA if needed, Azure Application Gateway)
 - Azure Application Gateway + Application Gateway Ingress Controller AKS add-on
-- An Azure Log Analytics Workspace (used for Azure Monitot Container Insight)
+- An Azure Log Analytics Workspace (used for Azure Monitor Container Insight)
 
 On Kubernetes, these Terraform files will :
 

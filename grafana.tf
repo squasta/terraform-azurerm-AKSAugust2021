@@ -5,8 +5,9 @@
 #  | |__| | | | (_| | || (_| | | | | (_| |
 #   \_____|_|  \__,_|_| \__,_|_| |_|\__,_|
 #
-# Deployment with Helm
+# Simple Deployment with Helm
 # Exposed on Internet using Azure Application Gateway Ingress Controller
+# This is just a sample for testing
   
 
 resource "helm_release" "Terra-grafana2" {

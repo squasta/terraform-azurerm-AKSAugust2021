@@ -4,7 +4,11 @@
 #  | |  | |/ _ \ '_ ` _ \ / _ \   |  ___/ _ \ / _` |  \ \ /\ / / | __| '_ \     / /\ \| | |_ | | || |     
 #  | |__| |  __/ | | | | | (_) |  | |  | (_) | (_| |   \ V  V /| | |_| | | |   / ____ \ |__| |_| || |____ 
 #  |_____/ \___|_| |_| |_|\___/   |_|   \___/ \__,_|    \_/\_/ |_|\__|_| |_|  /_/    \_\_____|_____\_____|
-    
+
+# You can you this sample to deploy and expose it with AGIC
+# get your AKS kubeconfig
+# then kubectl apply -f simplepodwithAGIC.yaml
+
 apiVersion: v1
 kind: Pod
 metadata:
