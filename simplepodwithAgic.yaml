@@ -1,0 +1,53 @@
+#   _____                          _____          _             _ _   _                 _____ _____ _____ 
+#  |  __ \                        |  __ \        | |           (_) | | |          /\   / ____|_   _/ ____|
+#  | |  | | ___ _ __ ___   ___    | |__) |__   __| |  __      ___| |_| |__       /  \ | |  __  | || |     
+#  | |  | |/ _ \ '_ ` _ \ / _ \   |  ___/ _ \ / _` |  \ \ /\ / / | __| '_ \     / /\ \| | |_ | | || |     
+#  | |__| |  __/ | | | | | (_) |  | |  | (_) | (_| |   \ V  V /| | |_| | | |   / ____ \ |__| |_| || |____ 
+#  |_____/ \___|_| |_| |_|\___/   |_|   \___/ \__,_|    \_/\_/ |_|\__|_| |_|  /_/    \_\_____|_____\_____|
+    
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-agic-app-pod
+  labels:
+    app: test-agic-app
+spec:
+  containers:
+  - image: "mcr.microsoft.com/dotnet/core/samples:aspnetapp"
+    name: aspnetapp-image
+    ports:
+    - containerPort: 80
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-agic-app-service
+spec:
+  selector:
+    app: test-agic-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-agic-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  rules:
+  - host: demoingress2.demostan.com  
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: test-agic-app-service
+            port:
+              number: 80
+
+
