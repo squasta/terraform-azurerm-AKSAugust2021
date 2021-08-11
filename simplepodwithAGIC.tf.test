@@ -1,9 +1,9 @@
-# /!\ kubernetes_manifest is a new type of resource provided by Kubernetes terraform provider
+# /!\ kubernetes_manifest is a new (and interesting) type of resource provided by Kubernetes terraform provider
 # https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/guides/alpha-manifest-migration-guide
 # https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest 
 
 # this file is renamed to .test because it generate a error message " cannot create REST client: no client config"
-# during the first plan phase if . The reason is that in our case the kubernetes cluster is not yet available
+# during the first terraform plan. The reason is that in our case the kubernetes cluster is not yet available
 # So there is no way to contact the api server and check kubernetes resource defined in manifest. 
 # If the cluster is already available, this kind of resource works well
 # the yaml manifest is also provided in this repo

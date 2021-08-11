@@ -22,5 +22,5 @@
 # }
 
 output "URL-to-connect-Grafana-through-AppGW-Ingress" {
-  value = "http://${var.a-record-dns-ingress}.${var.dns-zone-name-for-ingress}   no https i know it is just for test purpose !"
+  value = "http://${var.a-record-dns-ingress}.${var.dns-zone-name-for-ingress}   no https. i know: it is just for test purpose !"
 }
