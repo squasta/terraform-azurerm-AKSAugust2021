@@ -3,7 +3,7 @@
 === Still work in progress === version up to date August 2021
 
 = Tested with success with 
-Terraform v1.0.3
+Terraform v1.0.4
 on linux_amd64 (WSL2)
 + provider registry.terraform.io/hashicorp/azurerm v2.70.0
 + provider registry.terraform.io/hashicorp/helm v2.2.0
