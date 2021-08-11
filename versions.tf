@@ -26,14 +26,18 @@ terraform {
 
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = "= 2.3.2"
+      version = ">= 2.4.1"
     }
 
     helm = {
       source = "hashicorp/helm"
       version = "2.2.0"
     }
-
+    
+    time = {
+      source = "hashicorp/time"
+      version = "0.7.2"
+    }
 }
 }
 
@@ -50,6 +54,10 @@ provider "kubernetes" {
   client_certificate     = base64decode(azurerm_kubernetes_cluster.Terra_aks.kube_config.0.client_certificate)
   client_key             = base64decode(azurerm_kubernetes_cluster.Terra_aks.kube_config.0.client_key)
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.Terra_aks.kube_config.0.cluster_ca_certificate)
+  # cf. https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/guides/alpha-manifest-migration-guide
+  experiments {
+      manifest_resource = true
+  }
 }
 
 # Helm provider
@@ -60,4 +68,9 @@ provider "helm" {
     client_key             = base64decode(azurerm_kubernetes_cluster.Terra_aks.kube_config.0.client_key)
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.Terra_aks.kube_config.0.cluster_ca_certificate)
   }
+}
+
+# Time provider
+provider "time" {
+  # Configuration options
 }

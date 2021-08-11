@@ -7,8 +7,9 @@ Terraform v1.0.3
 on linux_amd64 (WSL2)
 + provider registry.terraform.io/hashicorp/azurerm v2.70.0
 + provider registry.terraform.io/hashicorp/helm v2.2.0
-+ provider registry.terraform.io/hashicorp/kubernetes v2.3.2
++ provider registry.terraform.io/hashicorp/kubernetes v2.4.1
 + provider registry.terraform.io/hashicorp/random v3.1.0
++ provider registry.terraform.io/providers/hashicorp/time v0.7.2
 
 --------------------------------------------------------------------------------------------------------
 
@@ -25,7 +26,7 @@ These Terraform files can be used to deploy the following Azure components :
 
 - An Azure Resource Group
 - An Azure Kubernetes Services Cluster with 1 node pool running Linux 
-- An additionnal node pool (pool2) with Windows Server 2019 nodes
+- An additionnal node pool (pool2) with Windows Server 2019 nodes (optional)
 - An Azure Load Balancer Standard SKU
 - A Virtual Network with it Subnets (subnet for AKS Pods, subnets for AzureBastion and AzureFirewall/NVA if needed, Azure Application Gateway)
 - Azure Application Gateway + Application Gateway Ingress Controller AKS add-on
@@ -33,8 +34,8 @@ These Terraform files can be used to deploy the following Azure components :
 
 On Kubernetes, these Terraform files will :
 
-- Create a ClusterRole Binding to give cluster-admin permissions to Kubernetes-Dashboard 
-- Deploy Grafana using Bitnami Helm Chart and exposed Grafana Dashboard using Ingress
+- Deploy Grafana using Bitnami Helm Chart and exposed Grafana Dashboard using Ingress (and AGIC)
+- Create a pod, a service and an ingress (the file associated is renamed in .old because of issue during first terraform plan) 
 
 __Prerequisites :__
 
@@ -69,5 +70,9 @@ After deployment is succeeded, you can check your cluster using portal or better
 Get your kubeconfig using :
 
 `az aks get-credentials --resource-group NAMEOFYOURRESOURCEGROUP --name NAMEOFYOURAKSCLUSTER --admin`
+
+Connect to Grafana Dashboard through Ingress
+
+`terraform output`to get FQDN
 
 ![Magic](https://github.com/squasta/AzureKubernetesService-Terraform/raw/master/Magic.gif)

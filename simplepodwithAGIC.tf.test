@@ -1,0 +1,107 @@
+# /!\ kubernetes_manifest is a new type of resource provided by Kubernetes terraform provider
+# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/guides/alpha-manifest-migration-guide
+# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest 
+
+# this file is renamed to .test because it generate a error message " cannot create REST client: no client config"
+# during the first plan phase if . The reason is that in our case the kubernetes cluster is not yet available
+# So there is no way to contact the api server and check kubernetes resource defined in manifest. 
+# If the cluster is already available, this kind of resource works well
+# the yaml manifest is also provided in this repo
+
+
+resource "kubernetes_manifest" "pod_test_agic_app_pod" {
+  depends_on = [
+    azurerm_kubernetes_cluster.Terra_aks
+  ]
+  manifest = {
+    "apiVersion" = "v1"
+    "kind" = "Pod"
+    "metadata" = {
+      "labels" = {
+        "app" = "test-agic-app"
+      }
+      "name" = "test-agic-app-pod"
+      "namespace" = "default"
+    }
+    "spec" = {
+      "containers" = [
+        {
+          "image" = "mcr.microsoft.com/dotnet/core/samples:aspnetapp"
+          "name" = "aspnetapp-image"
+          "ports" = [
+            {
+              "containerPort" = 80
+              "protocol" = "TCP"
+            },
+          ]
+        },
+      ]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "service_test_agic_app_service" {
+  depends_on = [
+    azurerm_kubernetes_cluster.Terra_aks
+  ]
+  manifest = {
+    "apiVersion" = "v1"
+    "kind" = "Service"
+    "metadata" = {
+      "name" = "test-agic-app-service"
+      "namespace" = "default"
+    }
+    "spec" = {
+      "ports" = [
+        {
+          "port" = 80
+          "protocol" = "TCP"
+          "targetPort" = 80
+        },
+      ]
+      "selector" = {
+        "app" = "test-agic-app"
+      }
+    }
+  }
+}
+
+resource "kubernetes_manifest" "ingress_test_agic_app_ingress" {
+  depends_on = [
+    azurerm_kubernetes_cluster.Terra_aks
+  ]
+  manifest = {
+    "apiVersion" = "networking.k8s.io/v1"
+    "kind" = "Ingress"
+    "metadata" = {
+      "annotations" = {
+        "kubernetes.io/ingress.class" = "azure/application-gateway"
+      }
+      "name" = "test-agic-app-ingress"
+      "namespace" = "default"
+    }
+    "spec" = {
+      "rules" = [
+        {
+          "host" = "demoingress2.demostan.com"
+          "http" = {
+            "paths" = [
+              {
+                "backend" = {
+                  "service" = {
+                    "name" = "test-agic-app-service"
+                    "port" = {
+                      "number" = 80
+                    }
+                  }
+                }
+                "path" = "/"
+                "pathType" = "Prefix"
+              },
+            ]
+          }
+        },
+      ]
+    }
+  }
+}
