@@ -114,6 +114,34 @@ resource "azurerm_kubernetes_cluster" "Terra_aks" {
 
 
 
+# AKS Agent node-pool cf. https://www.terraform.io/docs/providers/azurerm/r/kubernetes_cluster_node_pool.html
+# resource "azurerm_kubernetes_cluster_node_pool" "Terra-AKS-NodePools" {
+#   kubernetes_cluster_id = azurerm_kubernetes_cluster.Terra_aks.id
+#   name                  = "spotspool"
+#   depends_on            = [azurerm_kubernetes_cluster.Terra_aks]
+#   node_count            = 1          # static number or initial number of nodes. Must be between 1 to 100
+#   enable_auto_scaling   = true       # use this parameter if you want an AKS Cluster with Node autoscale. Need also min_count and max_count
+#   min_count             = 0          # minimum number of nodes with AKS Autoscaler
+#   max_count             = 3          # maximum number of nodes with AKS Autoscaler
+#   vm_size               = "Standard_D5_v2"
+#   availability_zones    = var.winpool-availabilityzones # example : [1, 2, 3]
+#   os_type               = "Linux"        # Possible values :linux, windows
+#   os_disk_size_gb       = 128
+#   vnet_subnet_id = azurerm_subnet.Terra_aks_subnet.id
+#   mode = "User"
+#   # priority = Regular or Spot
+#   priority = "Spot"                                     # not compatible with cluster autoupgrade
+#   eviction_policy = "Delete"                            # possible value : Delete, Deallocate
+#   spot_max_price  = "-1"
+#   node_taints = ["kubernetes.azure.com/scalesetpriority=spot:NoSchedule"]
+# }
+
+
+
+
+
+
+
 
 #               _     _ _ _   _                         _                   _                          _ 
 #      /\      | |   | (_) | (_)                       | |                 | |                        | |

@@ -20,6 +20,11 @@ variable "resource_group" {
   default = "RG-AKSCluster"
 }
 
+#
+# Respect AKS naming rules !!!
+# https://aka.ms/aks-naming-rules
+#
+
 # AKS Cluster name
 variable "cluster_name" {
   type    = string
@@ -80,7 +85,7 @@ variable "windows_admin_username" {
 variable "kubernetes_version" {
   description = "Version of Kubernetes to deploy"
   type        = string
-  default     = "1.16.9"
+  default     = "1.21.2"
 }
 
 
@@ -101,6 +106,7 @@ variable "defaultpool-nodecount" {
 variable "defaultpool-vmsize" {
   description = "Size of VM"
   # check if the choosen size is available in Azure region you selected : az vm list-usage --location NAMEOFAZUREREGION -o table
+  # az vm list-skus -l NAMEOFAZUREREGION
   type    = string
   default = "Standard_D2s_v3"
 }
