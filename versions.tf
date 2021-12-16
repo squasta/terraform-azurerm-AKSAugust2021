@@ -8,7 +8,7 @@
 #                                                                                                   |_|                                         
 
 terraform {
-  required_version = "= 1.0.4"
+  required_version = "= 1.1.0"
   required_providers {
     azurerm = {
       # The "hashicorp" namespace is the new home for the HashiCorp-maintained
@@ -21,7 +21,7 @@ terraform {
       # more info : https://github.com/terraform-providers/terraform-provider-azurerm
       # Check Changelog : https://github.com/terraform-providers/terraform-provider-azurerm/blob/master/CHANGELOG.md
       source  = "hashicorp/azurerm"
-      version = "= 2.70"
+      version = ">= 2.70"
     }
 
     kubernetes = {
